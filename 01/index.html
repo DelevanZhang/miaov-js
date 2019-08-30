@@ -79,35 +79,26 @@
      
 
         left.addEventListener('click', () => {
-           if(cicle){
-               if(imgIndex===0){imgIndex=3}
-               fn()
-               imgIndex--
-           }else{
-            if(imgIndex===-1){
-                alert('已近是最前面一张了')
-                imgIndex =0;
-                return;
-            }
-               fn()
-               imgIndex--
-           }
+          if(cicle){
+              if(imgIndex===0){imgIndex=imgs.length}
+                imgIndex--
+                fn()
+          }else {
+            if(imgIndex===0){alert('最前面一张');return}
+                imgIndex--
+                fn()
+          }
         })
         right.addEventListener('click', () => {
             if(cicle){
-                if(imgIndex===3){imgIndex=0}
-                fn()
+              if(imgIndex===3){imgIndex=-1}
                 imgIndex++
-                
-            }else {
-                if(imgIndex===3){
-                    alert('已近是最后一张')
-                    return;
-                }
                 fn()
+          }else {
+            if(imgIndex===3){alert('最后一张');return}
                 imgIndex++
-            }
-           
+                fn()
+          }
         })
 
         function fn() {
