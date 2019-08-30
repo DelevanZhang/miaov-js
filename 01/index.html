@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        span {
+            display: block;
+        }
+
+        #content {
+            width: 400px;
+            height: 400px;
+        }
+
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        img:not(#content) {
+            position: absolute;
+        }
+
+        img:nth-child(2) {
+            top: 50%;
+            left: 0;
+            background-color: red;
+            width: 40px;
+            height: 40px;
+            transform: translate(0, -20px);
+        }
+
+        img:nth-child(3) {
+            top: 50%;
+            right: 0;
+            background-color: red;
+            width: 40px;
+            height: 40px;
+            transform: translate(0, -20px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="cicle" id="btnCicle">循环播放</button>
+    <button class="order" id="btnOrder">顺序播放</button>
+    <span id="conter">1/4</span>
+    <div class="container">
+        <img src="./images/01.jpg" id="content">
+        <img src="./images/left.svg" id="left">
+        <img src="./images/htb－Arrow right02.svg" id="right">
+    </div>
+    <script>
+        let imgIndex = 0;
+        let cicle = true;
+        let imgs = ['./images/01.jpg', './images/02.png', './images/03.png', './images/04.jpg']
+        let btnCicle = document.getElementById('btnCicle')
+        let btnOrder = document.getElementById('btnOrder')
+        let spanConter = document.getElementById('conter')
+        let left = document.getElementById('left')
+        let right = document.getElementById('right')
+        let content = document.getElementById('content')
+        btnCicle.addEventListener('click', () => cicle = true)
+        btnOrder.addEventListener('click', () => cicle = false)
+     
+
+        left.addEventListener('click', () => {
+           if(cicle){
+               if(imgIndex===0){imgIndex=3}
+               fn()
+               imgIndex--
+           }else{
+            if(imgIndex===-1){
+                alert('已近是最前面一张了')
+                imgIndex =0;
+                return;
+            }
+               fn()
+               imgIndex--
+           }
+        })
+        right.addEventListener('click', () => {
+            if(cicle){
+                if(imgIndex===3){imgIndex=0}
+                fn()
+                imgIndex++
+                
+            }else {
+                if(imgIndex===3){
+                    alert('已近是最后一张')
+                    return;
+                }
+                fn()
+                imgIndex++
+            }
+           
+        })
+
+        function fn() {
+            content.src = imgs[imgIndex]
+            spanConter.innerHTML = `${imgIndex + 1}/${imgs.length}`
+        }
+    </script>
+</body>
+
+</html>
